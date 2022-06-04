@@ -4,7 +4,7 @@ pipeline {
         stage('CI') {
             steps {
             withCredentials([
-                usernamePassword(credentialsId: 'docker' , usernameVariable: 'docker_username', passwordVariable: 'docker_pass')]) {
+                usernamePassword(credentialsId: 'Dockerhubcred' , usernameVariable: 'docker_username', passwordVariable: 'docker_pass')]) {
                sh """
                docker build  -t salwafci94/helloflask:latest .
                docker login -u ${docker_username} -p ${docker_pass}
