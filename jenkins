@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage('CI') {
+            steps {
+            withCredentials([
+                usernamePassword(credentialsId: 'docker' , usernameVariable: 'docker_username', passwordVariable: 'docker_pass')]) {
+               sh """
+               docker build  -t arwa98/hellonode:latest .
+               docker login -u ${docker_username} -p ${docker_pass}
+    		   docker push arwa98/hellonode:latest 
+               
+               
+               """
+                }
+            }
+        }
+
+        stage('CD') {
+            steps {
+               sh """
+               docker run --network host  -d  arwa98/hellonode:latest 
+               """
+            }
+        }
+    }
+}
+
+// --env-file .env
