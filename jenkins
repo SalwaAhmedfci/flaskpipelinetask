@@ -19,7 +19,7 @@ pipeline {
         stage('CD') {
             steps {
                sh """
-               docker run --network host  -d  salwafci94/helloflask:latest 
+               docker run --network host    salwafci94/helloflask:latest 
                """
             }
         }
